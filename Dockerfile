@@ -39,6 +39,3 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-## Install mmongodb driver php
-#RUN pecl install mongodb
