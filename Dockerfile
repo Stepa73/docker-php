@@ -1,41 +1,45 @@
-FROM php:8.2-fpm
+FROM php:8.2-fpm-alpine
 
 LABEL maintainer="GAZi"
 
 # Set working directory
 WORKDIR /var/www
 
-# Add docker php ext repo
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-# Install php extensions
-RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mongodb
-
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
+RUN apk update && apk add --no-cache \
     libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
+    libjpeg-turbo-dev \
+    freetype-dev \
     zip \
     jpegoptim optipng pngquant gifsicle \
     unzip \
-    git \
-    curl \
-    lua-zlib-dev \
-    libmemcached-dev \
+    libzip-dev \
     nginx \
-    libcurl4-openssl-dev \
-    pkg-config \
-    libssl-dev
+    curl-dev \
+    pkgconfig \
+    memcached \
+    oniguruma-dev \
+    supervisor \
+    autoconf \
+    build-base
 
-# Install supervisor
-RUN apt-get install -y supervisor
+# Install php extensions
+RUN docker-php-ext-install pdo_mysql zip mbstring exif pcntl gd
+
+# Install MongoDB extension
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
+# Install Memcached extension
+RUN apk --no-cache add libmemcached-libs libmemcached && \
+    apk --no-cache add --virtual .memcached-deps zlib-dev libmemcached-dev && \
+    pecl install memcached && \
+    docker-php-ext-enable memcached && \
+    apk del .memcached-deps
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apk del build-base openssl-dev autoconf && \
+    apk cache clean && rm -rf /var/cache/apk/*
