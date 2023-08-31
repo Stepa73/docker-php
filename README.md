@@ -1,7 +1,7 @@
-# Docker php 8.2
+# Docker php
 Build and push image
 ```shell
-make build
+make build-<php-version>
 ```
 # Modules
  - mongodb
@@ -12,3 +12,4 @@ make build
  - pcntl
  - gd
  - memcached
+ - redis
