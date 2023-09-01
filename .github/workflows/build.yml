@@ -45,7 +45,9 @@ jobs:
           context: php74/alpine
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 74-alpine
+          tags: |
+            gazimazi/php:74-alpine
+            ghcr.io/Stepa73/docker-php:74-alpine
           labels: ${{ steps.meta.outputs.labels }}
 
 
@@ -89,7 +91,9 @@ jobs:
           context: php74/apache
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 74-apache
+          tags: |
+            gazimazi/php:74-apache
+            ghcr.io/Stepa73/docker-php:74-apache
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_registries_php80_alpine:
@@ -132,7 +136,9 @@ jobs:
           context: php80/alpine
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 80-alpine
+          tags: |
+            gazimazi/php:80-alpine
+            ghcr.io/Stepa73/docker-php:80-alpine
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_registries_php80_apache:
@@ -175,7 +181,9 @@ jobs:
           context: php80/apache
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 80-apache
+          tags: |
+            gazimazi/php:80-apache
+            ghcr.io/Stepa73/docker-php:80-apache
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_registries_php82_alpine:
@@ -218,7 +226,9 @@ jobs:
           context: php82/alpine
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 82-alpine
+          tags: |
+            gazimazi/php:82-alpine
+            ghcr.io/Stepa73/docker-php:82-alpine
           labels: ${{ steps.meta.outputs.labels }}
 
 
@@ -262,5 +272,7 @@ jobs:
           context: php82/apache
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: 82-apache
+          tags: |
+            gazimazi/php:82-apache
+            ghcr.io/Stepa73/docker-php:82-apache
           labels: ${{ steps.meta.outputs.labels }}
