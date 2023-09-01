@@ -47,7 +47,7 @@ jobs:
           push: true
           tags: |
             gazimazi/php:74-alpine
-            ghcr.io/Stepa73/docker-php:74-alpine
+            ghcr.io/stepa73/docker-php:74-alpine
           labels: ${{ steps.meta.outputs.labels }}
 
 
@@ -93,7 +93,7 @@ jobs:
           push: true
           tags: |
             gazimazi/php:74-apache
-            ghcr.io/Stepa73/docker-php:74-apache
+            ghcr.io/stepa73/docker-php:74-apache
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_registries_php80_alpine:
@@ -138,7 +138,7 @@ jobs:
           push: true
           tags: |
             gazimazi/php:80-alpine
-            ghcr.io/Stepa73/docker-php:80-alpine
+            ghcr.io/stepa73/docker-php:80-alpine
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_registries_php80_apache:
@@ -183,7 +183,7 @@ jobs:
           push: true
           tags: |
             gazimazi/php:80-apache
-            ghcr.io/Stepa73/docker-php:80-apache
+            ghcr.io/stepa73/docker-php:80-apache
           labels: ${{ steps.meta.outputs.labels }}
 
   push_to_registries_php82_alpine:
@@ -228,7 +228,7 @@ jobs:
           push: true
           tags: |
             gazimazi/php:82-alpine
-            ghcr.io/Stepa73/docker-php:82-alpine
+            ghcr.io/stepa73/docker-php:82-alpine
           labels: ${{ steps.meta.outputs.labels }}
 
 
@@ -274,5 +274,5 @@ jobs:
           push: true
           tags: |
             gazimazi/php:82-apache
-            ghcr.io/Stepa73/docker-php:82-apache
+            ghcr.io/stepa73/docker-php:82-apache
           labels: ${{ steps.meta.outputs.labels }}
