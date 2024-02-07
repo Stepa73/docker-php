@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:latest-8.3
+FROM dunglas/frankenphp:latest-php8.3
 
 LABEL maintainer="GAZi"
 
