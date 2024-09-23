@@ -1,5 +1,5 @@
 FROM node:latest as node
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 LABEL maintainer="GAZi"
 
