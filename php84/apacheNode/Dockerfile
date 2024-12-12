@@ -1,9 +1,15 @@
-FROM php:8.3-apache
+FROM node:latest as node
+FROM php:8.4-apache
 
 LABEL maintainer="GAZi"
 
 # Set default environment variables
 ENV DOC_ROOT=/var/www/html
+
+# Install node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 # Set working directory
 WORKDIR ${DOC_ROOT}
@@ -37,9 +43,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 
 # Change php.ini conf
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
-   sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /usr/local/etc/php/php.ini && \
-   sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /usr/local/etc/php/php.ini && \
-   sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini
+    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /usr/local/etc/php/php.ini && \
+    sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /usr/local/etc/php/php.ini && \
+    sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini
 
 # Add the entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
@@ -54,6 +60,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 80
+EXPOSE 80 5173
 
 ENTRYPOINT ["/entrypoint.sh"]
