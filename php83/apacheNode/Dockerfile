@@ -3,13 +3,16 @@ FROM php:8.3-apache
 
 LABEL maintainer="GAZi"
 
+# Set default environment variables
+ENV DOC_ROOT=/var/www/html
+
 # Install node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR ${DOC_ROOT}
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -43,6 +46,9 @@ RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
     sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini
+
+# Chnage root if specify
+RUN sed -i "s|DocumentRoot .*|DocumentRoot ${DOC_ROOT}|" /etc/apache2/sites-available/000-default.conf
 
 # Enable headers/rewrite module for Apache
 RUN a2enmod headers rewrite
