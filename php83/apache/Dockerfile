@@ -2,8 +2,11 @@ FROM php:8.3-apache
 
 LABEL maintainer="GAZi"
 
+# Set default environment variables
+ENV DOC_ROOT=/var/www/html
+
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR ${DOC_ROOT}
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -34,9 +37,12 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 
 # Change php.ini conf
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
-    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /usr/local/etc/php/php.ini && \
+   sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /usr/local/etc/php/php.ini && \
    sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /usr/local/etc/php/php.ini && \
    sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini
+
+# Chnage root if specify
+RUN sed -i "s|DocumentRoot .*|DocumentRoot ${DOC_ROOT}|" /etc/apache2/sites-available/000-default.conf
 
 # Enable headers/rewrite module for Apache
 RUN a2enmod headers rewrite
