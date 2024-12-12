@@ -47,8 +47,9 @@ RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
     sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini
 
-# Chnage root if specify
-RUN sed -i "s|DocumentRoot .*|DocumentRoot ${DOC_ROOT}|" /etc/apache2/sites-available/000-default.conf
+# Add the entrypoint script
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Enable headers/rewrite module for Apache
 RUN a2enmod headers rewrite
@@ -60,3 +61,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 80 5173
+
+ENTRYPOINT ["/entrypoint.sh"]
