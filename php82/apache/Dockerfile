@@ -30,7 +30,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 # Install php extensions
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mysqli redis intl gmp pdo_sqlite
+    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mysqli redis intl gmp pdo_sqlite ftp
 
 # Change php.ini conf
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \

@@ -24,7 +24,7 @@ RUN apk update && apk add --no-cache \
     build-base
 
 # Install php extensions
-RUN docker-php-ext-install pdo_mysql zip mbstring exif pcntl gd
+RUN docker-php-ext-install pdo_mysql zip mbstring exif pcntl gd ftp
 
 # Install MongoDB extension
 RUN pecl install mongodb \
