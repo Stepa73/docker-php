@@ -9,7 +9,8 @@ ENV DOC_ROOT=/var/www/html
 # Install node
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
-RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
+    ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 # Set working directory
 WORKDIR ${DOC_ROOT}
@@ -39,7 +40,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 # Install php extensions
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mysqli redis intl gmp pdo_sqlite
+    install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mysqli redis intl gmp pdo_sqlite ftp
 
 # Change php.ini conf
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
