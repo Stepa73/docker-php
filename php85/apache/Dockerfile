@@ -39,7 +39,8 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 100M/g' /usr/local/etc/php/php.ini && \
    sed -i 's/post_max_size = 8M/post_max_size = 100M/g' /usr/local/etc/php/php.ini && \
-   sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini
+   sed -i 's/memory_limit = 128M/memory_limit = 500M/g' /usr/local/etc/php/php.ini && \
+   sed -i 's/error_reporting = E_ALL/error_reporting = E_ALL \& ~E_DEPRECATED/g' /usr/local/etc/php/php.ini
 
 # Add the entrypoint script
 COPY ./entrypoint.sh /entrypoint.sh
