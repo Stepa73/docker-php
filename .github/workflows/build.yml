@@ -3,557 +3,94 @@ name: Publish Docker image
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
-#  push_to_registries_php74_alpine:
-#    name: gazimazi/php:74-alpine build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php74/alpine
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:74-alpine
-#            ghcr.io/stepa73/docker-php:74-alpine
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#
-#  push_to_registries_php74_apache:
-#    name: gazimazi/php:74-apache build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php74/apache
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:74-apache
-#            ghcr.io/stepa73/docker-php:74-apache
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php80_alpine:
-#    name: gazimazi/php:80-alpine build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php80/alpine
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:80-alpine
-#            ghcr.io/stepa73/docker-php:80-alpine
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php80_apache:
-#    name: gazimazi/php:80-apache build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php80/apache
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:80-apache
-#            ghcr.io/stepa73/docker-php:80-apache
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php80_apache_node:
-#    name: gazimazi/php:80-apache-node build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php80/apacheNode
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:80-apache-node
-#            ghcr.io/stepa73/docker-php:80-apache-node
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php82_alpine:
-#    name: gazimazi/php:82-alpine build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php82/alpine
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:82-alpine
-#            ghcr.io/stepa73/docker-php:82-alpine
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#
-#  push_to_registries_php82_apache:
-#    name: gazimazi/php:82-apache build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php82/apache
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:82-apache
-#            ghcr.io/stepa73/docker-php:82-apache
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php82_apache_node:
-#    name: gazimazi/php:82-apache-node build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php82/apacheNode
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:82-apache-node
-#            ghcr.io/stepa73/docker-php:82-apache-node
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php83_alpine:
-#    name: gazimazi/php:83-alpine build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php83/alpine
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:83-alpine
-#            ghcr.io/stepa73/docker-php:83-alpine
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#
-#  push_to_registries_php83_apache:
-#    name: gazimazi/php:83-apache build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php83/apache
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:83-apache
-#            ghcr.io/stepa73/docker-php:83-apache
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php83_apache_node:
-#    name: gazimazi/php:83-apache-node build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php83/apacheNode
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:83-apache-node
-#            ghcr.io/stepa73/docker-php:83-apache-node
-#          labels: ${{ steps.meta.outputs.labels }}
-#
-#  push_to_registries_php83_franekn:
-#    name: gazimazi/php:83-franken build
-#    runs-on: ubuntu-latest
-#    permissions:
-#      packages: write
-#      contents: read
-#    steps:
-#      - name: Check out the repo
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v2
-#
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Log in to the Container registry
-#        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.actor }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-#        with:
-#          images: |
-#            gazimazi/php
-#            ghcr.io/${{ github.repository }}
-#
-#      - name: Build and push Docker images
-#        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-#        with:
-#          context: php83/frankenphp
-#          platforms: linux/amd64,linux/arm64
-#          push: true
-#          tags: |
-#            gazimazi/php:83-franken
-#            ghcr.io/stepa73/docker-php:83-franken
-#          labels: ${{ steps.meta.outputs.labels }}
+  detect-changes:
+    name: Detect changed images
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.changes.outputs.matrix }}
+      any: ${{ steps.changes.outputs.any }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-  push_to_registries_php84_alpine:
-    name: gazimazi/php:84-alpine build
+      - name: Detect changed build contexts
+        id: changes
+        run: |
+          # Map build context directory -> image tag
+          tag_for() {
+            case "$1" in
+              php74/alpine)      echo "74-alpine" ;;
+              php74/apache)      echo "74-apache" ;;
+              php80/alpine)      echo "80-alpine" ;;
+              php80/apache)      echo "80-apache" ;;
+              php80/apacheNode)  echo "80-apache-node" ;;
+              php82/alpine)      echo "82-alpine" ;;
+              php82/apache)      echo "82-apache" ;;
+              php82/apacheNode)  echo "82-apache-node" ;;
+              php83/alpine)      echo "83-alpine" ;;
+              php83/apache)      echo "83-apache" ;;
+              php83/apacheNode)  echo "83-apache-node" ;;
+              php83/frankenphp)  echo "83-franken" ;;
+              php84/alpine)      echo "84-alpine" ;;
+              php84/apache)      echo "84-apache" ;;
+              php84/apacheNode)  echo "84-apache-node" ;;
+              php85/alpine)      echo "85-alpine" ;;
+              php85/apache)      echo "85-apache" ;;
+              php85/apacheNode)  echo "85-apache-node" ;;
+              php85/lite)        echo "85-lite" ;;
+              php85/frankenLite) echo "85-franken-lite" ;;
+            esac
+          }
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run - building all images"
+            CHANGED=$(ls -d php*/*/ | sed 's:/$::')
+          else
+            CURRENT_TAG="${{ github.event.release.tag_name }}"
+            PREV_TAG=$(git describe --tags --abbrev=0 "${CURRENT_TAG}^" 2>/dev/null || true)
+            if [ -z "$PREV_TAG" ]; then
+              echo "No previous tag found - building all images"
+              CHANGED=$(ls -d php*/*/ | sed 's:/$::')
+            else
+              echo "Comparing $PREV_TAG..$CURRENT_TAG"
+              CHANGED=$(git diff --name-only "$PREV_TAG" "$CURRENT_TAG" | grep -oE '^php[0-9]+/[^/]+' | sort -u || true)
+            fi
+          fi
+
+          INCLUDE=""
+          for dir in $CHANGED; do
+            tag=$(tag_for "$dir")
+            if [ -n "$tag" ]; then
+              echo "Will build: $dir -> $tag"
+              INCLUDE="$INCLUDE{\"context\":\"$dir\",\"tag\":\"$tag\"},"
+            fi
+          done
+
+          if [ -z "$INCLUDE" ]; then
+            echo "No image changes detected - nothing to build"
+            echo "any=false" >> "$GITHUB_OUTPUT"
+            echo 'matrix={"include":[]}' >> "$GITHUB_OUTPUT"
+          else
+            echo "any=true" >> "$GITHUB_OUTPUT"
+            echo "matrix={\"include\":[${INCLUDE%,}]}" >> "$GITHUB_OUTPUT"
+          fi
+
+  push_to_registries:
+    name: gazimazi/php:${{ matrix.tag }} build
+    needs: detect-changes
+    if: needs.detect-changes.outputs.any == 'true'
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.detect-changes.outputs.matrix) }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -585,327 +122,10 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: php84/alpine
+          context: ${{ matrix.context }}
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            gazimazi/php:84-alpine
-            ghcr.io/stepa73/docker-php:84-alpine
-          labels: ${{ steps.meta.outputs.labels }}
-
-
-  push_to_registries_php84_apache:
-    name: gazimazi/php:84-apache build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php84/apache
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:84-apache
-            ghcr.io/stepa73/docker-php:84-apache
-          labels: ${{ steps.meta.outputs.labels }}
-
-  push_to_registries_php84_apache_node:
-    name: gazimazi/php:84-apache-node build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php84/apacheNode
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:84-apache-node
-            ghcr.io/stepa73/docker-php:84-apache-node
-          labels: ${{ steps.meta.outputs.labels }}
-
-  push_to_registries_php85_alpine:
-    name: gazimazi/php:85-alpine build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php85/alpine
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:85-alpine
-            ghcr.io/stepa73/docker-php:85-alpine
-          labels: ${{ steps.meta.outputs.labels }}
-
-
-  push_to_registries_php85_apache:
-    name: gazimazi/php:85-apache build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php85/apache
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:85-apache
-            ghcr.io/stepa73/docker-php:85-apache
-          labels: ${{ steps.meta.outputs.labels }}
-
-  push_to_registries_php85_apache_node:
-    name: gazimazi/php:85-apache-node build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php85/apacheNode
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:85-apache-node
-            ghcr.io/stepa73/docker-php:85-apache-node
-          labels: ${{ steps.meta.outputs.labels }}
-
-  push_to_registries_php85_lite:
-    name: gazimazi/php:85-lite build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php85/lite
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:85-lite
-            ghcr.io/stepa73/docker-php:85-lite
-          labels: ${{ steps.meta.outputs.labels }}
-
-  push_to_registries_php85_franken_lite:
-    name: gazimazi/php:85-franken-lite build
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: |
-            gazimazi/php
-            ghcr.io/${{ github.repository }}
-
-      - name: Build and push Docker images
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: php85/frankenLite
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            gazimazi/php:85-franken-lite
-            ghcr.io/stepa73/docker-php:85-franken-lite
+            gazimazi/php:${{ matrix.tag }}
+            ghcr.io/stepa73/docker-php:${{ matrix.tag }}
           labels: ${{ steps.meta.outputs.labels }}

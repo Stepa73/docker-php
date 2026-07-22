@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_${NODE_VERSION}.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends nodejs \
-    && install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mysqli redis intl gmp pdo_sqlite \
+    && install-php-extensions mbstring pdo_mysql zip exif pcntl gd memcached mysqli redis intl gmp pdo_sqlite ftp \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
